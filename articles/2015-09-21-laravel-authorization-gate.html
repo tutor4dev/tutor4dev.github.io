@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="th-TH">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Implement Laravel Authorization ด้วย Gate | tutor4dev</title>
+    <meta name="description" content="คอร์สอบรม, บทความ และคลิปวีดีโอการพัฒนาเว็บแอพพลิเคชั่น - Implement Laravel Authorization ด้วย Gate">
+    <meta property="og:locale" content="th_TH">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit|Source+Code+Pro">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="preload" href="/assets/css/0.styles.b42006f7.css" as="style"><link rel="preload" href="/assets/js/app.bd579c1f.js" as="script"><link rel="preload" href="/assets/js/12.56db823f.js" as="script"><link rel="prefetch" href="/assets/js/10.2f2a9f03.js"><link rel="prefetch" href="/assets/js/11.a12e62c3.js"><link rel="prefetch" href="/assets/js/13.6cd09851.js"><link rel="prefetch" href="/assets/js/14.557343de.js"><link rel="prefetch" href="/assets/js/15.81853da3.js"><link rel="prefetch" href="/assets/js/16.5f87a221.js"><link rel="prefetch" href="/assets/js/17.ca25fc60.js"><link rel="prefetch" href="/assets/js/18.86c0d1f4.js"><link rel="prefetch" href="/assets/js/19.83b0fbd1.js"><link rel="prefetch" href="/assets/js/2.df9d7dd5.js"><link rel="prefetch" href="/assets/js/20.397be3bb.js"><link rel="prefetch" href="/assets/js/21.5369c7d5.js"><link rel="prefetch" href="/assets/js/22.efaf6a78.js"><link rel="prefetch" href="/assets/js/23.c2261ad5.js"><link rel="prefetch" href="/assets/js/24.2ef3b3e4.js"><link rel="prefetch" href="/assets/js/25.23ca9b8e.js"><link rel="prefetch" href="/assets/js/26.5b05325a.js"><link rel="prefetch" href="/assets/js/27.8ffb931b.js"><link rel="prefetch" href="/assets/js/28.b83909ab.js"><link rel="prefetch" href="/assets/js/29.0c456b80.js"><link rel="prefetch" href="/assets/js/3.3c00e90a.js"><link rel="prefetch" href="/assets/js/30.46b3541b.js"><link rel="prefetch" href="/assets/js/31.f9733de2.js"><link rel="prefetch" href="/assets/js/32.99a5cf70.js"><link rel="prefetch" href="/assets/js/33.cf8b6862.js"><link rel="prefetch" href="/assets/js/34.62a82a4f.js"><link rel="prefetch" href="/assets/js/35.739c5ba7.js"><link rel="prefetch" href="/assets/js/36.efc0088e.js"><link rel="prefetch" href="/assets/js/37.92d012c2.js"><link rel="prefetch" href="/assets/js/38.86382823.js"><link rel="prefetch" href="/assets/js/39.c2ce2983.js"><link rel="prefetch" href="/assets/js/4.95b51d44.js"><link rel="prefetch" href="/assets/js/5.504d9e4f.js"><link rel="prefetch" href="/assets/js/6.30592e44.js"><link rel="prefetch" href="/assets/js/7.38a8f8f3.js"><link rel="prefetch" href="/assets/js/8.df01d470.js"><link rel="prefetch" href="/assets/js/9.7b0388c5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b42006f7.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><!----> <nav role="navigation" aria-label="main navigation" class="navbar" data-v-ec4e6dd8><div class="navbar-brand" style="margin-left:2em;" data-v-ec4e6dd8><a href="https://twitter.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#55acee;" data-v-ec4e6dd8><i class="fa fa-lg fa-twitter" data-v-ec4e6dd8></i></span></a><a href="https://fb.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#4267b2;" data-v-ec4e6dd8><i class="fa fa-lg fa-facebook" data-v-ec4e6dd8></i></span></a><a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#ff0000;" data-v-ec4e6dd8><i class="fa fa-lg fa-youtube" data-v-ec4e6dd8></i></span></a> <button data-target="navMenu" class="button navbar-burger false" data-v-ec4e6dd8><span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span></button></div> <div id="navMenu" class="navbar-menu false" data-v-ec4e6dd8><a href="/" class="router-link-active navbar-item is-tab" data-v-ec4e6dd8>หน้าหลัก</a> <!----> <!----><!----> <a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-tab" data-v-ec4e6dd8>YouTube</a> <!----><a href="/articles.html" class="navbar-item is-tab is-active" data-v-ec4e6dd8>บทความ</a> <!----> <!----><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">คอร์สอบรม</a> <div class="navbar-dropdown"><a href="/courses/laravel.html" class="navbar-item is-tab">Laravel Framework 5 Fundamental</a><a href="/courses/node.html" class="navbar-item is-tab">Node.js และ Express.js Fundamental</a><a href="/courses/react.html" class="navbar-item is-tab">React.js และ Redux Fundamental</a><a href="/courses/vue.html" class="navbar-item is-tab">Vue.js VueRx และ Vuex Fundamental</a></div></div><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">หมวดหมู่</a> <div class="navbar-dropdown"><a href="/articles?category=configuration" class="navbar-item is-tab">Configuration</a><a href="/articles?category=firebase" class="navbar-item is-tab">Firebase</a><a href="/articles?category=javascript" class="navbar-item is-tab">JavaScript</a><a href="/articles?category=laravel" class="navbar-item is-tab">Laravel</a><a href="/articles?category=line" class="navbar-item is-tab">LINE</a><a href="/articles?category=nodejs" class="navbar-item is-tab">Node.js</a><a href="/articles?category=php" class="navbar-item is-tab">PHP</a><a href="/articles?category=reactjs" class="navbar-item is-tab">React.js</a><a href="/articles?category=vscode" class="navbar-item is-tab">Visual Studio Code</a><a href="/articles?category=vuejs" class="navbar-item is-tab">Vue.js</a><a href="/articles?category=youtube" class="navbar-item is-tab">YouTube</a></div></div><a href="/about.html" class="navbar-item is-tab" data-v-ec4e6dd8>เกี่ยวกับเรา</a> <!----> <!----></div></nav> <section class="section" style="padding-top:0.5em;"><div class="container"><div class="columns"><div class="column is-three-quarters"><div class="is-article"><p style="margin-bottom:2em;"></p> <div class="content custom"><h1>Implement Laravel Authorization ด้วย Gate</h1> <p>ความสามารถในการทำ Authentication ที่มากับ Laravel แบบ Out-of-the-Box นั้นเพิ่มความสะดวกให้ Developer เป็นอย่างมาก เมื่อใช้ <code>Auth</code> ร่วมกับ <code>Eloquent</code> แล้ว Developer อย่างพวกเราแทบจะไม่ต้องทำอะไรเลยก็สามารถมีระบบ Authentication ให้กับ Web App ของเราได้ทันที</p> <p>หลังจากจัดการเรื่อง Authentication แล้ว เราก็ยังมีความต้องการที่จะต้องจัดการเรื่อง Access Control List (ACL) เพิ่มเติม แต่หลังจากนี้ไม่มีอะไรยุ่งยากอีกต่อไปเมื่อ Laravel Released 5.1.11 ได้เพิ่มเติม Facade และ ServiceProvider สำหรับการทำ Authorization นั่นคือ <code>Gate</code></p> <h3 id="ตรวจสอบ-released-version-ของ-laravel-5">ตรวจสอบ Released Version ของ Laravel 5</h3> <p>พิมพ์คำสั่งที่ <em>Terminal</em></p> <div class="language-bash extra-class"><pre class="hljs"><code>
+php artisan --version
+</code></pre></div><p></p><figure class="image"><img src="/images/blogs/1509-001.png" alt="ภาพตัวอย่างการตรวจเช็ค Version ของ Laravel"></figure><p></p> <h3 id="การ-upgrade-จาก-laravel-released-ก่อนหน้า">การ Upgrade จาก Laravel Released ก่อนหน้า</h3> <p>เนื่องจากการ Upgrade จาก Released ก่อนหน้า 5.1.11 โดยการใช้ <code>composer update</code> นั้น เป็นเพียงการ Update <code>Illuminate</code> เท่านั้น จึงส่งผลให้ไฟล์ที่อยู่นอก Folder <code>vendor</code> ไม่ได้รับการเปลี่ยนแปลงแต่อย่างใด เราจึงต้องทำการ Manual Update เพิ่มเติมดังนี้</p> <p>เพิ่มไฟล์ <em>app/Providers/AuthServiceProvider.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Providers</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Contracts</span>\<span class="hljs-title">Auth</span>\<span class="hljs-title">Access</span>\<span class="hljs-title">Gate</span> <span class="hljs-title">as</span> <span class="hljs-title">GateContract</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">Illuminate</span>\<span class="hljs-title">Foundation</span>\<span class="hljs-title">Support</span>\<span class="hljs-title">Providers</span>\<span class="hljs-title">AuthServiceProvider</span> <span class="hljs-title">as</span> <span class="hljs-title">ServiceProvider</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthServiceProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ServiceProvider</span>
+</span>{
+    <span class="hljs-comment">/**
+     * The policy mappings for the application.
+     *
+     * <span class="hljs-doctag">@var</span> array
+     */</span>
+    <span class="hljs-keyword">protected</span> $policies = [
+        <span class="hljs-string">'App\Model'</span> =&gt; <span class="hljs-string">'App\Policies\ModelPolicy'</span>,
+    ];
+
+    <span class="hljs-comment">/**
+     * Register any application authentication / authorization services.
+     *
+     * <span class="hljs-doctag">@param</span>  \Illuminate\Contracts\Auth\Access\Gate  $gate
+     * <span class="hljs-doctag">@return</span> void
+     */</span>
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">boot</span><span class="hljs-params">(GateContract $gate)</span>
+    </span>{
+        <span class="hljs-keyword">parent</span>::registerPolicies($gate);
+
+        <span class="hljs-comment">//</span>
+    }
+}
+</code></pre></div><p>แก้ไขไฟล์ <em>config/app.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-comment">/*
+ * Application Service Providers...
+ */</span>
+
+App\Providers\AppServiceProvider::class,
+App\Providers\AuthServiceProvider::class,
+
+...
+
+<span class="hljs-string">'aliases'</span> =&gt; [
+    ...
+    <span class="hljs-string">'Gate'</span> =&gt; Illuminate\Support\Facades\Gate::class,
+    ...
+];
+</code></pre></div><h3 id="การกำหนด-policy">การกำหนด Policy</h3> <p>การกำหนด Policy ในการเข้าถึง Resource ต่างๆ ภายใน App นั้น เราจะกำหนดไว้ที่ไฟล์ <code>app/Providers/AuthServiceProvider.php</code> ภายใน Function ที่ชื่อ <code>boot()</code></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">AuthServiceProvider</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">ServiceProvider</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">boot</span><span class="hljs-params">(GateContract $gate)</span>
+    </span>{
+        <span class="hljs-keyword">parent</span>::registerPolicies($gate);
+
+        $gate-&gt;define(<span class="hljs-string">'list-employee'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($user)</span> </span>{
+            <span class="hljs-keyword">return</span> $user-&gt;role === <span class="hljs-string">'admin'</span>;
+        });
+    }
+}
+</code></pre></div><blockquote><p>สังเกตุว่า Function <code>boot()</code> จะมีการ Inject <code>GateContract</code> เข้ามาเพื่อใช้งาน</p> <p>เรากำหนด Policy โดยการใช้ <code>$gate-&gt;define</code> และ กำหนดชื่อ เช่น <code>list-employee</code> พร้อมทั้งมีการรับ Parameter <code>$user</code> จากตัวอย่างข้างต้น <code>$user</code> จะเป็นตัวแปรที่เก็บค่า User ของ Session ซึ่งมาจากการเรียกใช้ <code>Auth::attemp()</code> ในการทำ Authentication ซึ่งเราได้กำหนด Policy ไว้ว่า User ที่สามารถเข้าถึง <code>list-employee</code> ได้นั้นจะต้องมี Field <code>role</code> ในฐานข้อมูลเท่ากับ <code>admin</code></p> <p>เนื่องจาก <code>Gate</code> รับค่าต่อมาจาก <code>$user</code> ดังนั้นหากยังไม่มีการ Logged in การทำ Authorization ด้วย <code>Gate</code> จะคืนค่า <code>false</code> โดยอัตโนมัติ</p></blockquote> <h3 id="ตรวจสอบ-authorization-ใน-controller">ตรวจสอบ Authorization ใน Controller</h3> <p>เราสามารถอ้างถึง <code>Gate</code> Facade ได้ทันทีเมื่อเรามีความต้องการที่จะทำการตรวจสอบสิทธิ์ในการเข้าถึง โดยการใช้ <code>Gate::allows()</code> แล้วตามด้วยชื่อของ Policy ที่ได้กำหนดไว้</p> <p><em>Controller</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-keyword">if</span> (\Gate::allows(<span class="hljs-string">'list-employee'</span>)) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'You have permission'</span>;
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'You have no permissions'</span>;
+}
+</code></pre></div><blockquote><p><code>Gate::allows()</code> จะอนุญาตให้ทำเมื่อ Policy คืนค่า <code>false</code> ส่วน <code>Gate::denies()</code> จะให้ผลลัพธ์ตรงกันข้าม</p></blockquote> <h3 id="การกำหนด-policy-แบบมีการอ้างอิง-model-อื่น">การกำหนด Policy แบบมีการอ้างอิง Model อื่น</h3> <p>ยกตัวอย่างเช่น ในกรณีที่เราจะอนุญาตให้ User สามารถลบเฉพาะ Post ของตัวเองได้เท่านั้น</p> <p><em>app/Providers/AuthServiceProvider.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+$gate-&gt;define(<span class="hljs-string">'delete-post'</span>, <span class="hljs-function"><span class="hljs-keyword">function</span><span class="hljs-params">($user, $post)</span> </span>{
+    <span class="hljs-keyword">return</span> $post-&gt;user_id = $user-&gt;id;
+});
+</code></pre></div><blockquote><p>ตรวจสอบว่า Post ที่ User ต้องการลบมี ID ของเจ้าของ Post ตรงกับ ID ของ User ตาม Session หรือไม่</p></blockquote> <p><em>Controller</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+$post = \App\Post::find($id);
+
+<span class="hljs-keyword">if</span> (\Gate::allows(<span class="hljs-string">'delete-post'</span>, $post)) {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'You have permission to delete'</span>;
+} <span class="hljs-keyword">else</span> {
+    <span class="hljs-keyword">echo</span> <span class="hljs-string">'You have no permissions to delete'</span>;
+}
+</code></pre></div><h3 id="ตรวจสอบ-authorization-ใน-model">ตรวจสอบ Authorization ใน Model</h3> <p>เราสามารถทำการตรวจสอบ Authorization ที่ระดับ Model ได้เช่นกัน โดยการใช้ <code>can()</code> ของ <code>App\User</code> ซึ่งจะมีค่าเทียบเท่ากับการใช้ <code>Gate::allows()</code> ในระดับ Controller ส่วน <code>cannot()</code> จะเทียบเท่ากับ <code>Gate::denies()</code></p> <p><em>Model</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-keyword">if</span> ($user-&gt;can(<span class="hljs-string">'delete-post'</span>, $post)) {
+    <span class="hljs-comment">// You have permission to delete</span>
+}
+</code></pre></div><h3 id="ตรวจสอบ-authorization-ใน-blade">ตรวจสอบ Authorization ใน Blade</h3> <p>เราสามารถทำการตรวจสอบ Authorization ที่ระดับของ Blade ได้เช่นกัน เช่น เราต้องการจะแสดง Link ในการลบ Post เฉพาะกรณีที่ User มีสิทธิในการเข้าถึงเท่านั้น</p> <p><em>Blade</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+@can('delete-post', $post)
+    &lt;input type=&quot;submit&quot; value=&quot;Delete&quot;&gt;
+@endcan
+</code></pre></div><h3 id="บทสรุป">บทสรุป</h3> <p>การทำ Authorization นั้นเป็นสิ่งที่มีความจำเป็นแทบในทุกๆ App ซึ่ง <code>Gate</code> ใน Laravel Released 5.1.11 นั้นช่วยให้ชีวิตของ Developer ง่ายยิ่งขึ้นอีกเยอะ ในบทความนี้เป็นเพียงการพูดถึง <code>Gate</code> ในระดับพื้นฐานเท่านั้น หากผู้อ่านสนใจใช้งาน <code>Gate</code> ในระดับสูงสามารถศึกษาได้จาก <a href="http://laravel.com/docs/5.1/authorization" target="_blank" rel="noopener noreferrer">Documentation<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> ของ Laravel โดยตรงครับ</p> <blockquote><p>Code ตัวอย่างในบทความนี้ถูกทดสอบบน Laravel 5.1.x</p></blockquote></div></div></div> <div class="column is-hidden-mobile"><p style="margin-bottom:2em"></p> <!----></div></div></div></section> <!----></div></div>
+    <script src="/assets/js/app.bd579c1f.js" defer></script><script src="/assets/js/12.56db823f.js" defer></script>
+  </body>
+</html>

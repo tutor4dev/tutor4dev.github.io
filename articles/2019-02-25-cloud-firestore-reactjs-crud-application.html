@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="th-TH">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>เขียนโปรแกรม CRUD ใช้งาน Cloud Firestore โดยใช้ React Hooks | tutor4dev</title>
+    <meta name="description" content="Cloud Firestore คือบริการฐานข้อมูลประเภท NoSQL ที่จัดเก็บข้อมูลแบบ Online ซึ่งสามารถใช้งานได้ฟรีหากอยู่ในข้อจำกัดที่กำหนดไว้ บทความนี้เราจะลองมาเขียนโปรแกรม CRUD ด้วย React Hooks เพื่อใช้งานบริการฐานข้อมูลฟรีตัวนี้กันดูครับ">
+    <meta property="og:locale" content="th_TH">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit|Source+Code+Pro">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="keywords" content="firebase, firestore, reactjs"><meta property="og:description" content="Cloud Firestore คือบริการฐานข้อมูลประเภท NoSQL ที่จัดเก็บข้อมูลแบบ Online ซึ่งสามารถใช้งานได้ฟรีหากอยู่ในข้อจำกัดที่กำหนดไว้ บทความนี้เราจะลองมาเขียนโปรแกรม CRUD ด้วย React Hooks เพื่อใช้งานบริการฐานข้อมูลฟรีตัวนี้กันดูครับ"><meta property="og:title" content="เขียนโปรแกรม CRUD ใช้งาน Cloud Firestore โดยใช้ React Hooks"><meta property="og:image" content="https://tutor4dev.com/images/thumbnails/react.png"><meta property="og:url" content="https://tutor4dev.com/articles/2019-02-25-cloud-firestore-reactjs-crud-application.html">
+    <link rel="preload" href="/assets/css/0.styles.b42006f7.css" as="style"><link rel="preload" href="/assets/js/app.bd579c1f.js" as="script"><link rel="preload" href="/assets/js/26.5b05325a.js" as="script"><link rel="prefetch" href="/assets/js/10.2f2a9f03.js"><link rel="prefetch" href="/assets/js/11.a12e62c3.js"><link rel="prefetch" href="/assets/js/12.56db823f.js"><link rel="prefetch" href="/assets/js/13.6cd09851.js"><link rel="prefetch" href="/assets/js/14.557343de.js"><link rel="prefetch" href="/assets/js/15.81853da3.js"><link rel="prefetch" href="/assets/js/16.5f87a221.js"><link rel="prefetch" href="/assets/js/17.ca25fc60.js"><link rel="prefetch" href="/assets/js/18.86c0d1f4.js"><link rel="prefetch" href="/assets/js/19.83b0fbd1.js"><link rel="prefetch" href="/assets/js/2.df9d7dd5.js"><link rel="prefetch" href="/assets/js/20.397be3bb.js"><link rel="prefetch" href="/assets/js/21.5369c7d5.js"><link rel="prefetch" href="/assets/js/22.efaf6a78.js"><link rel="prefetch" href="/assets/js/23.c2261ad5.js"><link rel="prefetch" href="/assets/js/24.2ef3b3e4.js"><link rel="prefetch" href="/assets/js/25.23ca9b8e.js"><link rel="prefetch" href="/assets/js/27.8ffb931b.js"><link rel="prefetch" href="/assets/js/28.b83909ab.js"><link rel="prefetch" href="/assets/js/29.0c456b80.js"><link rel="prefetch" href="/assets/js/3.3c00e90a.js"><link rel="prefetch" href="/assets/js/30.46b3541b.js"><link rel="prefetch" href="/assets/js/31.f9733de2.js"><link rel="prefetch" href="/assets/js/32.99a5cf70.js"><link rel="prefetch" href="/assets/js/33.cf8b6862.js"><link rel="prefetch" href="/assets/js/34.62a82a4f.js"><link rel="prefetch" href="/assets/js/35.739c5ba7.js"><link rel="prefetch" href="/assets/js/36.efc0088e.js"><link rel="prefetch" href="/assets/js/37.92d012c2.js"><link rel="prefetch" href="/assets/js/38.86382823.js"><link rel="prefetch" href="/assets/js/39.c2ce2983.js"><link rel="prefetch" href="/assets/js/4.95b51d44.js"><link rel="prefetch" href="/assets/js/5.504d9e4f.js"><link rel="prefetch" href="/assets/js/6.30592e44.js"><link rel="prefetch" href="/assets/js/7.38a8f8f3.js"><link rel="prefetch" href="/assets/js/8.df01d470.js"><link rel="prefetch" href="/assets/js/9.7b0388c5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b42006f7.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><!----> <nav role="navigation" aria-label="main navigation" class="navbar" data-v-ec4e6dd8><div class="navbar-brand" style="margin-left:2em;" data-v-ec4e6dd8><a href="https://twitter.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#55acee;" data-v-ec4e6dd8><i class="fa fa-lg fa-twitter" data-v-ec4e6dd8></i></span></a><a href="https://fb.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#4267b2;" data-v-ec4e6dd8><i class="fa fa-lg fa-facebook" data-v-ec4e6dd8></i></span></a><a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#ff0000;" data-v-ec4e6dd8><i class="fa fa-lg fa-youtube" data-v-ec4e6dd8></i></span></a> <button data-target="navMenu" class="button navbar-burger false" data-v-ec4e6dd8><span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span></button></div> <div id="navMenu" class="navbar-menu false" data-v-ec4e6dd8><a href="/" class="router-link-active navbar-item is-tab" data-v-ec4e6dd8>หน้าหลัก</a> <!----> <!----><!----> <a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-tab" data-v-ec4e6dd8>YouTube</a> <!----><a href="/articles.html" class="navbar-item is-tab is-active" data-v-ec4e6dd8>บทความ</a> <!----> <!----><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">คอร์สอบรม</a> <div class="navbar-dropdown"><a href="/courses/laravel.html" class="navbar-item is-tab">Laravel Framework 5 Fundamental</a><a href="/courses/node.html" class="navbar-item is-tab">Node.js และ Express.js Fundamental</a><a href="/courses/react.html" class="navbar-item is-tab">React.js และ Redux Fundamental</a><a href="/courses/vue.html" class="navbar-item is-tab">Vue.js VueRx และ Vuex Fundamental</a></div></div><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">หมวดหมู่</a> <div class="navbar-dropdown"><a href="/articles?category=configuration" class="navbar-item is-tab">Configuration</a><a href="/articles?category=firebase" class="navbar-item is-tab">Firebase</a><a href="/articles?category=javascript" class="navbar-item is-tab">JavaScript</a><a href="/articles?category=laravel" class="navbar-item is-tab">Laravel</a><a href="/articles?category=line" class="navbar-item is-tab">LINE</a><a href="/articles?category=nodejs" class="navbar-item is-tab">Node.js</a><a href="/articles?category=php" class="navbar-item is-tab">PHP</a><a href="/articles?category=reactjs" class="navbar-item is-tab">React.js</a><a href="/articles?category=vscode" class="navbar-item is-tab">Visual Studio Code</a><a href="/articles?category=vuejs" class="navbar-item is-tab">Vue.js</a><a href="/articles?category=youtube" class="navbar-item is-tab">YouTube</a></div></div><a href="/about.html" class="navbar-item is-tab" data-v-ec4e6dd8>เกี่ยวกับเรา</a> <!----> <!----></div></nav> <section class="section" style="padding-top:0.5em;"><div class="container"><div class="columns"><div class="column is-three-quarters"><div class="is-article"><p style="margin-bottom:2em;"></p> <div class="content custom"><h1>เขียนโปรแกรม CRUD ใช้งาน Cloud Firestore โดยใช้ React Hooks</h1> <p>Cloud Firestore คือบริการฐานข้อมูลประเภท NoSQL ที่จัดเก็บข้อมูลแบบ Online ซึ่งสามารถใช้งานได้ฟรีหากอยู่ในข้อจำกัดที่กำหนดไว้ บทความนี้เราจะลองมาเขียนโปรแกรม CRUD ด้วย React Hooks เพื่อใช้งานบริการฐานข้อมูลฟรีตัวนี้กันดูครับ</p> <p>โดยบทความนี้จะไม่ขอพูดถึงพื้นฐานเกี่ยวกับ Cloud Firestore และฐานข้อมูลประเภท NoSQL นะครับ</p> <h3 id="ข้อจำกัดของการใช้งาน-firestore-แบบฟรี">ข้อจำกัดของการใช้งาน Firestore แบบฟรี</h3> <p></p><figure class="image"><img src="https://i.imgur.com/jqqKRFm.png" alt></figure><p></p> <h3 id="firebase-account">Firebase Account</h3> <p>เราสามารถใช้ Google Account เพื่อสมัคร Firebase Account และสร้าง Firebase Project ได้ที่ <a href="https://console.firebase.google.com" target="_blank" rel="noopener noreferrer">https://console.firebase.google.com<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a></p> <p>หลังจากสร้าง Firebase Project ก็สามารถดูค่า Configuration เพื่อใช้สำหรับการตั้งค่าในขั้นตอนต่อไป ได้จากการคลิ๊กตามลำดับที่ <code>1.</code>และ<code>2.</code></p> <p></p><figure class="image"><img src="https://i.imgur.com/ekNBqAA.png" alt></figure><p></p> <h3 id="เตรียมไฟล์สำหรับเขียนโปรแกรม">เตรียมไฟล์สำหรับเขียนโปรแกรม</h3> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
++-src
+|   |-firebase.js
+|   |-Insert.jsx
+|   |-Display.jsx
+|   |-Delete.jsx
+|   |-Update.jsx
+</code></pre></div><p>พิมพ์คำสั่งที่ <em>Terminal</em></p> <div class="language-bash extra-class"><pre class="hljs"><code>
+<span class="hljs-comment"># ติดตั้ง package firebase</span>
+npm install @firebase/app --save
+npm install @firebase/firestore --save
+</code></pre></div><h3 id="module-สำหรับ-firebase-application">Module สำหรับ Firebase Application</h3> <p>เพื่อความสะดวกในการเรียกใช้ Instance ของ Firebase Application จากไฟล์ Component แต่ละไฟล์ เราจึงแยกเขียน โค้ดในส่วนนี้ออกเป็น Module ซะเลย</p> <p>ไฟล์ <em>src/firebase.js</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-comment">// เรียกใช้ module</span>
+<span class="hljs-keyword">import</span> firebase <span class="hljs-keyword">from</span> <span class="hljs-string">'@firebase/app'</span>
+<span class="hljs-keyword">import</span> <span class="hljs-string">'@firebase/firestore'</span>
+
+<span class="hljs-comment">// ค่า minimum configuration คือ `apiKey` และ `projectId`</span>
+<span class="hljs-keyword">const</span> config = {
+  <span class="hljs-attr">apiKey</span>: <span class="hljs-string">'AIzaSyCSZnKyvz6a8aBIAzLSG...'</span>,
+  <span class="hljs-attr">projectId</span>: <span class="hljs-string">'tutor4dev-...'</span>
+}
+
+<span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> firebase.apps[<span class="hljs-number">0</span>] || firebase.initializeApp(config)
+</code></pre></div><h3 id="ใช้งาน-firebase-module">ใช้งาน Firebase Module</h3> <p>Component ที่ต้องการใช้งาน Instance ของ Firebase Application เราก็จะทำการ Import Module และจะใช้ตัว Instance ดังกล่าวในการสร้างตัวแปรเพื่อเข้าถึง Collection ชื่อ <code>users</code> ตามลำดับ</p> <p>ในฐานข้อมูลแบบ NoSQL นั้นเราสามารถอ้างถึงชื่อ Collection ทั้งๆที่เราไม่เคยสร้าง Schema ของ Collection นี้มาก่อน</p> <p><em>Code</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-comment">// เรียกใช้ module</span>
+<span class="hljs-keyword">import</span> firebaseApp <span class="hljs-keyword">from</span> <span class="hljs-string">'../firebase'</span>
+<span class="hljs-comment">// ประกาศตัวแปรเพื่ออ้างอิง user collection</span>
+<span class="hljs-keyword">const</span> db = firebaseApp.firestore()
+<span class="hljs-keyword">const</span> userCollection = db.collection(<span class="hljs-string">'users'</span>)
+</code></pre></div><h3 id="insert-component">Insert Component</h3> <p>มาเริ่มต้นที่ Component ตัวแรกซึ่งทำหน้าที่ Insert ข้อมูล กันเลยครับ</p> <p>ไฟล์ <em>src/Insert.jsx</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-keyword">import</span> React, { useState } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+
+<span class="hljs-comment">/* โค้ดการเรียกใช้ firebaseApp */</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Insert</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// ประกาศตัวแปร state และ method สำหรับเปลี่ยนค่าตัวแปร</span>
+    <span class="hljs-keyword">const</span> [firstName, setFirstName] = useState(<span class="hljs-string">''</span>)
+    <span class="hljs-keyword">const</span> [lastName, setLastName] = useState(<span class="hljs-string">''</span>)
+
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertDocument</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// เว้นส่วนนี้ไว้ในขั้นตอนถัดไป</span>
+    }
+
+    <span class="hljs-keyword">return</span> &lt;div&gt;
+        {/* ตัวแปร state จะถูกเปลี่ยนค่าเมื่อพิมพ์ข้อมูล และ trigger การ re-render */}
+        &lt;input type=&quot;text&quot; value={ firstName } onChange={e =&gt; setFirstName(e.target.value)} /&gt;
+        &lt;input type=&quot;text&quot; value={ lastName } onChange={e =&gt; setLastName(e.target.value)} /&gt;
+
+        {/* เรียกใช้ method เมื่อ click ปุ่ม */}
+        &lt;button onClick={ insertDocument }&gt;Save&lt;/button&gt;
+    &lt;/div&gt;
+}
+</code></pre></div><p><img src="https://i.imgur.com/1aTBxiC.png" alt></p> <p>ขั้นตอนต่อไปจะเป็นการเขียนโค้ดสำหรับ Insert ข้อมูลไปยัง Cloud Firestore ครับ โดยเราได้ใช้ State <code>firstName</code> และ <code>lastName</code> เป็นข้อมูลที่นำไป Insert</p> <p>หลังจากการ Insert แล้ว Cloud Firestore จะคืน Reference Object ของ Document ที่เพิ่งจะถูก Insert สำเร็จ ซึ่งเราสามารถใช้ Object นี้เข้าถึงค่าที่เราต้องการได้ เช่น Document ID เป็นต้น</p> <p>ไฟล์ <em>src/Insert.jsx</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">insertDocument</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// insert และคืน document reference</span>
+    <span class="hljs-keyword">const</span> documentRef = <span class="hljs-keyword">await</span> userCollection.add({
+        firstName,
+        lastName
+    })
+
+    <span class="hljs-comment">// ใช้ document reference เข้าถึงค่า document id</span>
+    alert(<span class="hljs-string">`new document has been inserted as <span class="hljs-subst">${ documentRef.id }</span>`</span>)
+}
+</code></pre></div><p></p><figure class="image"><img src="https://i.imgur.com/8x9kevK.png" alt></figure><p></p> <blockquote><p>ข้อมูลถูกจัดเก็บใน Cloud Firestore แบบ Collection และ Document</p></blockquote> <h3 id="realtime-subscription">Realtime Subscription</h3> <p>Cloud Firestore รองรับการผูก Subscription แบบ Realtime เช่นเดียวกับ Firebase Realtime Database ในขั้นตอนนี้เราต้องใช้งาน <code>useEffect</code> Hooks เพื่อจัดการกับ Lifecycle Method ของ React.js</p> <p>ไฟล์ <em>src/Display.jsx</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-comment">// เรียกใช้ module</span>
+<span class="hljs-keyword">import</span> React, { useState, useEffect } <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>
+
+<span class="hljs-comment">/* โค้ดการเรียกใช้ firebaseApp */</span>
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Display</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">// ประกาศตัวแปร state</span>
+    <span class="hljs-keyword">const</span> [ users, setUsers ] = useState({})
+
+    useEffect(<span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+        <span class="hljs-comment">// subscription นี้จะเกิด callback กับทุกการเปลี่ยนแปลงของ collection users</span>
+        <span class="hljs-keyword">const</span> unsubscribe = userCollection.onSnapshot(<span class="hljs-function"><span class="hljs-params">ss</span> =&gt;</span> {
+            <span class="hljs-comment">// ตัวแปร local</span>
+            <span class="hljs-keyword">const</span> users = {}
+
+            ss.forEach(<span class="hljs-function"><span class="hljs-params">document</span> =&gt;</span> {
+                <span class="hljs-comment">// manipulate ตัวแปร local</span>
+                users[<span class="hljs-built_in">document</span>.id] = <span class="hljs-built_in">document</span>.data()
+            })
+
+            <span class="hljs-comment">// เปลี่ยนค่าตัวแปร state</span>
+            setUsers(users)
+        })
+
+        <span class="hljs-keyword">return</span> <span class="hljs-function"><span class="hljs-params">()</span> =&gt;</span> {
+            <span class="hljs-comment">// ยกเลิก subsciption เมื่อ component ถูกถอดจาก dom</span>
+            unsubscribe()
+        }
+    }, [])
+
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        {/* แสดงผล state users */}
+        <span class="hljs-tag">&lt;<span class="hljs-name">pre</span>&gt;</span>{ JSON.stringify(users) }<span class="hljs-tag">&lt;/<span class="hljs-name">pre</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+</code></pre></div><p><em><code>users</code></em> State</p> <div class="language-json extra-class"><pre class="hljs"><code>
+{
+    <span class="hljs-attr">&quot;QJRxdiPlN4B9tuVUJd4T&quot;</span>: {
+        <span class="hljs-attr">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Steve&quot;</span>,
+        <span class="hljs-attr">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Jobs&quot;</span>
+    },
+    <span class="hljs-attr">&quot;saysTLfSQBFxCFh7NR7s&quot;</span>: {
+        <span class="hljs-attr">&quot;firstName&quot;</span>: <span class="hljs-string">&quot;Dan&quot;</span>,
+        <span class="hljs-attr">&quot;lastName&quot;</span>: <span class="hljs-string">&quot;Abramov&quot;</span>
+    }
+}
+</code></pre></div><h3 id="delete-component"><code>Delete</code> Component</h3> <p>การจัดการกับ Document ของ Cloud Firestore นั้นเราจะต้องใช้เลข ID ของ Document ในการอ้างอิง ขั้นตอนนี้จึงจะเป็นการนำ <code>users</code> State มาแสดงคู่กับปุ่ม Delete โดยปุ่ม Delete จะส่งค่า Argument ซึ่งเป็นค่า ID ของ Document นั้นๆ</p> <p>ไฟล์ <em>src/Delete.jsx</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Delete</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-comment">/* โค้ด realtime subscription */</span>
+
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deleteDocument</span>(<span class="hljs-params">id</span>) </span>{
+        <span class="hljs-comment">// ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ</span>
+        <span class="hljs-keyword">const</span> documentRef = userCollection.doc(id)
+        <span class="hljs-comment">// ลบ document</span>
+        <span class="hljs-keyword">await</span> documentRef.delete()
+
+        alert(<span class="hljs-string">`document <span class="hljs-subst">${ id }</span> has been deleted`</span>)
+    }
+
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        { Object.keys(users).map(id =&gt; {
+            return <span class="hljs-tag">&lt;<span class="hljs-name">button</span> <span class="hljs-attr">key</span>=<span class="hljs-string">{</span> <span class="hljs-attr">id</span> } <span class="hljs-attr">onClick</span>=<span class="hljs-string">{</span> () =&gt;</span> deleteDocument(id) }&gt;Delete { id }<span class="hljs-tag">&lt;/<span class="hljs-name">button</span>&gt;</span>
+        }) }
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+</code></pre></div><p><img src="https://i.imgur.com/zB8oxZP.png" alt></p> <h3 id="update-component"><code>Update</code> Component</h3> <p><code>Update</code> Component จะทำงานเป็น 2 ขั้นตอน ขั้นตอนแรกจะใช้ค่า Document ID อ่านค่า Document รายการที่ต้องการแก้ไขมาเก็บไว้กับตัวแปร State ซึ่งผูกกับ <code>onChange</code> Event ของ <code>&lt;input /&gt;</code></p> <p>ขั้นตอนที่ 2 จะเป็นการใช้ค่าปัจจุบันของตัวแปร State บันทึกไปยัง Cloud Firestore</p> <p>ไฟล์ <em>src/Update.jsx</em></p> <div class="language-js extra-class"><pre class="hljs"><code>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Update</span>(<span class="hljs-params"></span>) </span>{
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">readDocument</span>(<span class="hljs-params">id</span>) </span>{
+        <span class="hljs-comment">// ประกาศตัวแปรเพื่ออ้างอิงไปยัง document ที่จะทำการลบ</span>
+        <span class="hljs-keyword">const</span> documentRef = <span class="hljs-keyword">await</span> userCollection.doc(id).get()
+
+        <span class="hljs-comment">// อ่านค่าของ document</span>
+        <span class="hljs-keyword">const</span> { firstName, lastName } = documentRef.data()
+        <span class="hljs-comment">// เปลี่ยนแปลง state ตามค่าของ document</span>
+        setId(documentRef.id)
+        setFirstName(firstName)
+        setLastName(lastName)
+    }
+
+    <span class="hljs-keyword">async</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">updateDocument</span>(<span class="hljs-params"></span>) </span>{
+        <span class="hljs-comment">// update ค่าไปยัง cloud firestore โดยใช้ค่าจาก state</span>
+        <span class="hljs-keyword">const</span> options = { <span class="hljs-attr">merge</span>: <span class="hljs-literal">true</span> }
+        <span class="hljs-keyword">await</span> userCollection.doc(id).set({ firstName, lastName }, options)
+    }
+
+    <span class="hljs-keyword">return</span> <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-name">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-name">p</span>&gt;</span>ID: { id }<span class="hljs-tag">&lt;/<span class="hljs-name">p</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-name">div</span>&gt;</span></span>
+}
+</code></pre></div><p><img src="https://i.imgur.com/oWwTrUt.png" alt></p> <h3 id="つづく">つづく</h3></div></div></div> <div class="column is-hidden-mobile"><p style="margin-bottom:2em"></p> <!----></div></div></div></section> <!----></div></div>
+    <script src="/assets/js/app.bd579c1f.js" defer></script><script src="/assets/js/26.5b05325a.js" defer></script>
+  </body>
+</html>

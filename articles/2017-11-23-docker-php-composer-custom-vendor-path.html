@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="th-TH">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ตั้งค่า Custom Path ให้กับ โฟลเดอร์ vendor เพื่อใช้งานร่วมกับ Docker | tutor4dev</title>
+    <meta name="description" content="คอร์สอบรม, บทความ และคลิปวีดีโอการพัฒนาเว็บแอพพลิเคชั่น - ตั้งค่า Custom Path ให้กับ โฟลเดอร์ vendor เพื่อใช้งานร่วมกับ Docker">
+    <meta property="og:locale" content="th_TH">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit|Source+Code+Pro">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    
+    <link rel="preload" href="/assets/css/0.styles.b42006f7.css" as="style"><link rel="preload" href="/assets/js/app.bd579c1f.js" as="script"><link rel="preload" href="/assets/js/20.397be3bb.js" as="script"><link rel="prefetch" href="/assets/js/10.2f2a9f03.js"><link rel="prefetch" href="/assets/js/11.a12e62c3.js"><link rel="prefetch" href="/assets/js/12.56db823f.js"><link rel="prefetch" href="/assets/js/13.6cd09851.js"><link rel="prefetch" href="/assets/js/14.557343de.js"><link rel="prefetch" href="/assets/js/15.81853da3.js"><link rel="prefetch" href="/assets/js/16.5f87a221.js"><link rel="prefetch" href="/assets/js/17.ca25fc60.js"><link rel="prefetch" href="/assets/js/18.86c0d1f4.js"><link rel="prefetch" href="/assets/js/19.83b0fbd1.js"><link rel="prefetch" href="/assets/js/2.df9d7dd5.js"><link rel="prefetch" href="/assets/js/21.5369c7d5.js"><link rel="prefetch" href="/assets/js/22.efaf6a78.js"><link rel="prefetch" href="/assets/js/23.c2261ad5.js"><link rel="prefetch" href="/assets/js/24.2ef3b3e4.js"><link rel="prefetch" href="/assets/js/25.23ca9b8e.js"><link rel="prefetch" href="/assets/js/26.5b05325a.js"><link rel="prefetch" href="/assets/js/27.8ffb931b.js"><link rel="prefetch" href="/assets/js/28.b83909ab.js"><link rel="prefetch" href="/assets/js/29.0c456b80.js"><link rel="prefetch" href="/assets/js/3.3c00e90a.js"><link rel="prefetch" href="/assets/js/30.46b3541b.js"><link rel="prefetch" href="/assets/js/31.f9733de2.js"><link rel="prefetch" href="/assets/js/32.99a5cf70.js"><link rel="prefetch" href="/assets/js/33.cf8b6862.js"><link rel="prefetch" href="/assets/js/34.62a82a4f.js"><link rel="prefetch" href="/assets/js/35.739c5ba7.js"><link rel="prefetch" href="/assets/js/36.efc0088e.js"><link rel="prefetch" href="/assets/js/37.92d012c2.js"><link rel="prefetch" href="/assets/js/38.86382823.js"><link rel="prefetch" href="/assets/js/39.c2ce2983.js"><link rel="prefetch" href="/assets/js/4.95b51d44.js"><link rel="prefetch" href="/assets/js/5.504d9e4f.js"><link rel="prefetch" href="/assets/js/6.30592e44.js"><link rel="prefetch" href="/assets/js/7.38a8f8f3.js"><link rel="prefetch" href="/assets/js/8.df01d470.js"><link rel="prefetch" href="/assets/js/9.7b0388c5.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.b42006f7.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><!----> <nav role="navigation" aria-label="main navigation" class="navbar" data-v-ec4e6dd8><div class="navbar-brand" style="margin-left:2em;" data-v-ec4e6dd8><a href="https://twitter.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#55acee;" data-v-ec4e6dd8><i class="fa fa-lg fa-twitter" data-v-ec4e6dd8></i></span></a><a href="https://fb.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#4267b2;" data-v-ec4e6dd8><i class="fa fa-lg fa-facebook" data-v-ec4e6dd8></i></span></a><a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#ff0000;" data-v-ec4e6dd8><i class="fa fa-lg fa-youtube" data-v-ec4e6dd8></i></span></a> <button data-target="navMenu" class="button navbar-burger false" data-v-ec4e6dd8><span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span></button></div> <div id="navMenu" class="navbar-menu false" data-v-ec4e6dd8><a href="/" class="router-link-active navbar-item is-tab" data-v-ec4e6dd8>หน้าหลัก</a> <!----> <!----><!----> <a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-tab" data-v-ec4e6dd8>YouTube</a> <!----><a href="/articles.html" class="navbar-item is-tab is-active" data-v-ec4e6dd8>บทความ</a> <!----> <!----><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">คอร์สอบรม</a> <div class="navbar-dropdown"><a href="/courses/laravel.html" class="navbar-item is-tab">Laravel Framework 5 Fundamental</a><a href="/courses/node.html" class="navbar-item is-tab">Node.js และ Express.js Fundamental</a><a href="/courses/react.html" class="navbar-item is-tab">React.js และ Redux Fundamental</a><a href="/courses/vue.html" class="navbar-item is-tab">Vue.js VueRx และ Vuex Fundamental</a></div></div><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">หมวดหมู่</a> <div class="navbar-dropdown"><a href="/articles?category=configuration" class="navbar-item is-tab">Configuration</a><a href="/articles?category=firebase" class="navbar-item is-tab">Firebase</a><a href="/articles?category=javascript" class="navbar-item is-tab">JavaScript</a><a href="/articles?category=laravel" class="navbar-item is-tab">Laravel</a><a href="/articles?category=line" class="navbar-item is-tab">LINE</a><a href="/articles?category=nodejs" class="navbar-item is-tab">Node.js</a><a href="/articles?category=php" class="navbar-item is-tab">PHP</a><a href="/articles?category=reactjs" class="navbar-item is-tab">React.js</a><a href="/articles?category=vscode" class="navbar-item is-tab">Visual Studio Code</a><a href="/articles?category=vuejs" class="navbar-item is-tab">Vue.js</a><a href="/articles?category=youtube" class="navbar-item is-tab">YouTube</a></div></div><a href="/about.html" class="navbar-item is-tab" data-v-ec4e6dd8>เกี่ยวกับเรา</a> <!----> <!----></div></nav> <section class="section" style="padding-top:0.5em;"><div class="container"><div class="columns"><div class="column is-three-quarters"><div class="is-article"><p style="margin-bottom:2em;"></p> <div class="content custom"><h1>ตั้งค่า Custom Path ให้กับ โฟลเดอร์ vendor เพื่อใช้งานร่วมกับ Docker</h1> <p>เพื่อความสะดวกในการพัฒนา Application อีกทั้งยังเป็นการปรับปรุงคุณภาพของ Workflow ในขั้นตอนการ Development ปัจจุบันคงไม่มีใครปฎิเสธที่จะใช้งาน Docker และ สำหรับโปรเจค PHP นั้น Docker ช่วยให้พวกเราลดปัญหาเรื่อง Environment จริงตอน Deploy ขึ้น Production ได้เป็นอย่างมาก</p> <p>ซึ่งการใช้ <code>docker-compose</code> เพื่อ Setup โปรเจคนั้นเป็นวิธีที่พวกเรานิยมใช้กัน โดยมักจะมีโครงสร้างสำหรับโปรเจค PHP ประมาณนี้</p> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+|-docker-compose.yml
++-php
+|   |-Dockerfile
+|   +-src
+|   |   |-index.php
+</code></pre></div><p><em>docker-compose.yml</em></p> <div class="language-yml extra-class"><pre class="hljs"><code>
+<span class="hljs-attr">version:</span> <span class="hljs-string">&quot;3.3&quot;</span>
+
+<span class="hljs-attr">services:</span>
+
+<span class="hljs-attr">    php:</span>
+<span class="hljs-attr">        build:</span>
+<span class="hljs-attr">            context:</span> <span class="hljs-string">./php</span>
+<span class="hljs-attr">        container_name:</span> <span class="hljs-string">web</span>
+<span class="hljs-attr">        ports:</span>
+<span class="hljs-bullet">            -</span> <span class="hljs-string">&quot;80:80&quot;</span>
+<span class="hljs-attr">        restart:</span> <span class="hljs-string">always</span>
+<span class="hljs-attr">        volumes:</span>
+<span class="hljs-bullet">            -</span> <span class="hljs-string">${PROJECT_PATH}/php/src:/var/www/html</span>
+</code></pre></div><p>สำหรับโปรเจค PHP นั้นเราต้องการให้โฟลเดอร์ <code>vendor</code> อยู่ที่ Path <code>php/src/vendor</code> จึงทำให้เมื่อเราต้องการติดตั้ง Dependencies ยกตัวอย่างเช่น <code>slim/slim</code> จะต้องทำการเปลี่ยน Path ซะก่อน</p> <p><em>Terminal</em></p> <div class="language-bash extra-class"><pre class="hljs"><code>
+<span class="hljs-built_in">cd</span> php/src
+composer require slim/slim
+</code></pre></div><blockquote><p>ปัญหาคือเมื่อเราเปิด Terminal จาก Editor เช่น Visual Studio Code เจ้า Default Working Directory จะอยู่ที่ Root Path ดังนั้นหากเราลืมเปลี่ยน Working Directory จะต้องมาเสียเวลา Cleanup ไฟล์ที่เกิดจากการติดตั้งผิดที่ผิดทาง</p></blockquote> <h3 id="ตั้งค่า-custom-path-สำหรับ-vendor">ตั้งค่า Custom Path สำหรับ <code>vendor</code></h3> <p>โชคดีที่เราสามารถตั้งค่า Custom Path สำหรับ โฟลเดอร์ <code>vendor</code> ได้ โดยเราจะเพิ่มไฟล์ <code>composer.json</code> ไว้ที่ Root Path</p> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+|-composer.json
+|-docker-compose.yml
++-php
+</code></pre></div><p><em>composer.json</em></p> <div class="language-json extra-class"><pre class="hljs"><code>
+{
+    <span class="hljs-attr">&quot;config&quot;</span>: {
+        <span class="hljs-attr">&quot;vendor-dir&quot;</span>: <span class="hljs-string">&quot;php/src/vendor&quot;</span>
+    }
+}
+</code></pre></div><p>หลังจากทำการตั้งค่า Custom Path ให้กับ <code>vendor</code> แล้วเราสามารถใช้คำสั่งติดตั้ง Dependencies จาก Root Path ได้เลย</p> <p><em>Terminal</em></p> <div class="language-bash extra-class"><pre class="hljs"><code>
+composer require slim/slim
+</code></pre></div><h3 id="ผลลัพธ์">ผลลัพธ์</h3> <p>โฟลเดอร์ <code>vendor</code> เกิดขึ้นในตำแหน่งที่เราต้องการ</p> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+|-composer.json
++-php
+|   +-src
+|   |   |-index.php
+|   |   +-vendor
+</code></pre></div><p>ซึ่งการบันทึกข้อมูล Dependencies ที่ได้ถูกติดตั้งไว้กับโปรเจค ยังคงถูกบันทึกไว้ที่ไฟล์ <code>composer.json</code> ในตำแหน่ง Root Path</p> <p><em>composer.json</em></p> <div class="language-json extra-class"><pre class="hljs"><code>
+{
+    <span class="hljs-attr">&quot;config&quot;</span>: {
+        <span class="hljs-attr">&quot;vendor-dir&quot;</span>: <span class="hljs-string">&quot;php/src/vendor&quot;</span>
+    },
+    <span class="hljs-attr">&quot;require&quot;</span>: {
+        <span class="hljs-attr">&quot;slim/slim&quot;</span>: <span class="hljs-string">&quot;^3.9&quot;</span>
+    }
+}
+</code></pre></div><h3 id="ทดสอบ">ทดสอบ</h3> <p>ลองทดสอบการเรียกใช้ Dependencies โดยทดลองเขียนโค้ด PHP ง่ายๆ ตามตัวอย่างด้านล่าง</p> <p><em>php/src/index.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/vendor/autoload.php'</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Slim</span>\<span class="hljs-title">App</span>;
+
+$app = <span class="hljs-keyword">new</span> App;
+
+var_dump($app);
+</code></pre></div><h3 id="ปัญหาที่จะตามมาคือการใช้งาน-autoload">ปัญหาที่จะตามมาคือการใช้งาน Autoload</h3> <p>สมมุติผมต้องการจะมีไฟล์ <code>HomeController.php</code> ตามโครงสร้างด้านล่าง</p> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+|-composer.json
++-php
+|   +-src
+|   |   |-index.php
+|   |   +-app
+|   |   |   +-Controllers
+|   |   |   |   |-HomeController.php
+|   |   +-vendor
+</code></pre></div><p>ซึ่งผมจะใช้การทำ Autoload แบบ <code>psr-4</code> เพื่อรองรับการใช้งาน <code>namespace</code></p> <p><em>php/src/app/Controllers/HomeController.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">namespace</span> <span class="hljs-title">App</span>\<span class="hljs-title">Controllers</span>;
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">HomeController</span>
+</span>{
+    <span class="hljs-keyword">public</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">__construct</span><span class="hljs-params">()</span>
+    </span>{
+        <span class="hljs-keyword">echo</span> <span class="hljs-string">'Hello World'</span>;
+    }
+}
+</code></pre></div><p>หากยังไม่มีการทำ Autoload โค้ด PHP ด้านล่างจะต้องแสดง Error อย่างแน่นอน</p> <p><em>php/src/index.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/vendor/autoload.php'</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Slim</span>\<span class="hljs-title">App</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">BaseController</span>;
+
+$app = <span class="hljs-keyword">new</span> App;
+$c = <span class="hljs-keyword">new</span> BaseController;
+</code></pre></div><p>ซึ่งในการทำ Autoload นั้นเราจะเพิ่มไฟล์ <code>composer.json</code> ไฟล์ที่ 2 ไว้ที่ Path ตามโครงสร้างด้านล่าง</p> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+|-composer.json
++-php
+|   +-src
+|   |   |-composer.json
+|   |   |-index.php
+</code></pre></div><p>เขียนโค้ดในไฟล์ <code>composer.json</code> ตามตัวอย่างด้านล่าง เพื่อตั้งค่า Autoload</p> <p><em>php/src/composer.json</em></p> <div class="language-json extra-class"><pre class="hljs"><code>
+{
+  <span class="hljs-attr">&quot;autoload&quot;</span>: {
+    <span class="hljs-attr">&quot;psr-4&quot;</span>: {
+      <span class="hljs-attr">&quot;App\\&quot;</span>: <span class="hljs-string">&quot;app&quot;</span>
+    }
+  }
+}
+</code></pre></div><h3 id="composer-custom-script"><code>composer</code> Custom Script</h3> <p>ปัญหาตอนนี้คือหากเราใช้คำสั้ง <code>composer dump-autoload</code> จากตำแหน่ง Root จะไม่มีผลใดๆ เกิดขึ้นเพราะ <code>composer</code> จะอ่านเพียงแค่ไฟล์ <code>composer.json</code> ในตำแหน่ง Working Directory เท่านั้น</p> <p>ซึ่งเราสามารถจะทำการเปลี่ยน Working Directory ด้วยคำสั่ง <code>cd src/php</code> ก่อนใช้คำสั่ง <code>composer dump-autoload</code> ก็ย่อมได้ แต่มันคงเหมือนจะเป็นการถอยหลังนะสิ เราจึงจะแก้ปัญหานี้ด้วย <code>composer</code> Custom Script</p> <p>แก้ไขไฟล์ <code>composer.json</code> โดยเพิ่มโค้ดส่วนของ <code>scripts</code> Section ตามตัวอย่างด้านล่าง</p> <p><em>composer.json</em></p> <div class="language-json extra-class"><pre class="hljs"><code>
+{
+  <span class="hljs-attr">&quot;config&quot;</span>: {
+    <span class="hljs-attr">&quot;vendor-dir&quot;</span>: <span class="hljs-string">&quot;php/src/vendor&quot;</span>
+  },
+  <span class="hljs-attr">&quot;require&quot;</span>: {
+    <span class="hljs-attr">&quot;slim/slim&quot;</span>: <span class="hljs-string">&quot;^3.9&quot;</span>
+  },
+  <span class="hljs-attr">&quot;scripts&quot;</span>: {
+    <span class="hljs-attr">&quot;autoload&quot;</span>: <span class="hljs-string">&quot;cd php/src &amp;&amp; @composer dump-autoload&quot;</span>
+  }
+}
+</code></pre></div><blockquote><p>การตั้งชื่อ Custom Script นั้นเราสามารถตั้งชื่ออะไรก็ได้ที่ไม่ไปซ้ำกับ Sub Command ของ <code>composer</code> หากเราอยากดูว่า <code>composer</code> มี Sub Command อะไรบ้าง สามารถดูได้คร่าวๆ จากคำสั่ง <code>composer --help</code></p></blockquote> <p>หลังจากแก้ไขโค้ดในไฟล์ <code>composer.json</code> เรียบร้อยแล้ว เราก็สามารถเรียกใช้ Custom Script ได้จากตำแหน่ง Root Path ด้วยตัวอย่างคำสั่งด้านล่างได้เลย</p> <p><em>Terminal</em></p> <div class="language-bash extra-class"><pre class="hljs"><code>
+composer <span class="hljs-built_in">autoload</span>
+</code></pre></div><p>เพียงแค่นี้เราก็สามารถกลับไปทดสอบโค้ด PHP ตามตัวอย่างข้างล่างได้อย่างไม่มี Error แล้วหล่ะ</p> <p><em>php/src/index.php</em></p> <div class="language-php extra-class"><pre class="hljs"><code>
+<span class="hljs-meta">&lt;?php</span>
+
+<span class="hljs-keyword">require</span> <span class="hljs-keyword">__DIR__</span> . <span class="hljs-string">'/vendor/autoload.php'</span>;
+
+<span class="hljs-keyword">use</span> <span class="hljs-title">Slim</span>\<span class="hljs-title">App</span>;
+<span class="hljs-keyword">use</span> <span class="hljs-title">App</span>\<span class="hljs-title">Controllers</span>\<span class="hljs-title">BaseController</span>;
+
+$app = <span class="hljs-keyword">new</span> App;
+$c = <span class="hljs-keyword">new</span> BaseController;
+</code></pre></div><h3 id="บทสรุป">บทสรุป</h3> <p>วิธีการที่ได้นำเสนอในบทความนี้ อาจจะมีการตั้งค่าที่ยุ่งย่างพอสมควร แต่เพื่อลดปัญหาในเรียกใช้คำสั่งผิดที่ ผู้เขียนคิดว่าเทคนิตนี้มีความคุ้มค่าที่จะทำ ซึ่งสุดท้ายเราสามารถทำเป็น Repository ไว้เพื่อใช้ในการ Scaffold โปรเจคที่จะเกิดขึ้นใหม่ต่อไป</p> <p>อย่างไรก็ตามเทคนิคนี้ยังคงมีข้อจำกัดหากเราต้องการจะมีโปรเจค PHP มากกว่า 1 โปรเจค ภายใต้โปรเจค Docker เนื่องจากเราสามารถตั้งค่า Custom Path สำหรับ โฟลเดอร์ <code>vendor</code> ได้เพียงค่าเดียวเท่านั้น</p></div></div></div> <div class="column is-hidden-mobile"><p style="margin-bottom:2em"></p> <!----></div></div></div></section> <!----></div></div>
+    <script src="/assets/js/app.bd579c1f.js" defer></script><script src="/assets/js/20.397be3bb.js" defer></script>
+  </body>
+</html>
