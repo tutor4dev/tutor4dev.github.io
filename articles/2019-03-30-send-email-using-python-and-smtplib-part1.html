@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="th-TH">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>เขียนโปรแกรมส่งอีเมลด้วยภาษา Python ตอนที่ 1 | tutor4dev</title>
+    <meta name="description" content="โปรแกรมส่งอีเมลเป็นโปรแกรมที่เขียนง่าย และสามารถนำไปประยุกต์ใช้งานได้หลากหลาย เช่นการแจ้งโปรโมชั่นกับลูกค้า การส่งจดหมายเวียน และการใช้ยืนยันการสมัครสมาชิกของเว็บไซต์ เป็นต้น โดยบทความนี้จะเลือกใช้ภาษา Python ซึ่งกำลังฮอตฮิตเป็นอย่างมากในปัจจุบัน เนื่องจากเป็นภาษาที่เรียนรู้ง่ายแม้จะไม่เคยเขียนโปรแกรมมาก่อน และยังสามารถนำไปต่อยอดใช้กับการเขียนโปรแกรมด้าน Data Science และ Machine Learning ได้อีกด้วย">
+    <meta property="og:locale" content="th_TH">
+  <meta property="og:type" content="article">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kanit|Source+Code+Pro">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <meta name="keywords" content="python, smtplib"><meta property="og:description" content="โปรแกรมส่งอีเมลเป็นโปรแกรมที่เขียนง่าย และสามารถนำไปประยุกต์ใช้งานได้หลากหลาย เช่นการแจ้งโปรโมชั่นกับลูกค้า การส่งจดหมายเวียน และการใช้ยืนยันการสมัครสมาชิกของเว็บไซต์ เป็นต้น โดยบทความนี้จะเลือกใช้ภาษา Python ซึ่งกำลังฮอตฮิตเป็นอย่างมากในปัจจุบัน เนื่องจากเป็นภาษาที่เรียนรู้ง่ายแม้จะไม่เคยเขียนโปรแกรมมาก่อน และยังสามารถนำไปต่อยอดใช้กับการเขียนโปรแกรมด้าน Data Science และ Machine Learning ได้อีกด้วย"><meta property="og:title" content="เขียนโปรแกรมส่งอีเมลด้วยภาษา Python ตอนที่ 1"><meta property="og:image" content="https://tutor4dev.com/images/thumbnails/python.png"><meta property="og:url" content="https://tutor4dev.com/articles/2019-03-30-send-email-using-python-and-smtplib-part1.html">
+    <link rel="preload" href="/assets/css/0.styles.91300273.css" as="style"><link rel="preload" href="/assets/js/app.ca8b9976.js" as="script"><link rel="preload" href="/assets/js/30.0627d354.js" as="script"><link rel="prefetch" href="/assets/js/10.19a93195.js"><link rel="prefetch" href="/assets/js/11.4839b2c5.js"><link rel="prefetch" href="/assets/js/12.43d3d9bc.js"><link rel="prefetch" href="/assets/js/13.c6b0273a.js"><link rel="prefetch" href="/assets/js/14.99e5612b.js"><link rel="prefetch" href="/assets/js/15.4a80a520.js"><link rel="prefetch" href="/assets/js/16.9d03883d.js"><link rel="prefetch" href="/assets/js/17.85020c52.js"><link rel="prefetch" href="/assets/js/18.91398a1f.js"><link rel="prefetch" href="/assets/js/19.f9a96888.js"><link rel="prefetch" href="/assets/js/2.416f42f2.js"><link rel="prefetch" href="/assets/js/20.a9690ebf.js"><link rel="prefetch" href="/assets/js/21.a00a77fa.js"><link rel="prefetch" href="/assets/js/22.562990d5.js"><link rel="prefetch" href="/assets/js/23.8fc29c26.js"><link rel="prefetch" href="/assets/js/24.de3da9f4.js"><link rel="prefetch" href="/assets/js/25.c3c14d3d.js"><link rel="prefetch" href="/assets/js/26.8f474f06.js"><link rel="prefetch" href="/assets/js/27.f917ef5f.js"><link rel="prefetch" href="/assets/js/28.8896a162.js"><link rel="prefetch" href="/assets/js/29.ca7dd98c.js"><link rel="prefetch" href="/assets/js/3.8d44adec.js"><link rel="prefetch" href="/assets/js/31.0f0e24f3.js"><link rel="prefetch" href="/assets/js/32.33041d10.js"><link rel="prefetch" href="/assets/js/33.d6bf9f83.js"><link rel="prefetch" href="/assets/js/34.6e8163cf.js"><link rel="prefetch" href="/assets/js/35.d34e3d20.js"><link rel="prefetch" href="/assets/js/36.27ac6495.js"><link rel="prefetch" href="/assets/js/37.77f00204.js"><link rel="prefetch" href="/assets/js/38.0dbc4fb4.js"><link rel="prefetch" href="/assets/js/39.181ae7bf.js"><link rel="prefetch" href="/assets/js/4.e59ffa50.js"><link rel="prefetch" href="/assets/js/40.534bd42d.js"><link rel="prefetch" href="/assets/js/41.2d22ffb8.js"><link rel="prefetch" href="/assets/js/5.cf11d61b.js"><link rel="prefetch" href="/assets/js/6.0d36f759.js"><link rel="prefetch" href="/assets/js/7.46d53fd4.js"><link rel="prefetch" href="/assets/js/8.4f2d32ba.js"><link rel="prefetch" href="/assets/js/9.2615014a.js">
+    <link rel="stylesheet" href="/assets/css/0.styles.91300273.css">
+  </head>
+  <body>
+    <div id="app" data-server-rendered="true"><div><!----> <nav role="navigation" aria-label="main navigation" class="navbar" data-v-ec4e6dd8><div class="navbar-brand" style="margin-left:2em;" data-v-ec4e6dd8><a href="https://twitter.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#55acee;" data-v-ec4e6dd8><i class="fa fa-lg fa-twitter" data-v-ec4e6dd8></i></span></a><a href="https://fb.com/tutor4dev" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#4267b2;" data-v-ec4e6dd8><i class="fa fa-lg fa-facebook" data-v-ec4e6dd8></i></span></a><a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-hidden-desktop" data-v-ec4e6dd8><span class="icon" style="color:#ff0000;" data-v-ec4e6dd8><i class="fa fa-lg fa-youtube" data-v-ec4e6dd8></i></span></a> <button data-target="navMenu" class="button navbar-burger false" data-v-ec4e6dd8><span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span> <span data-v-ec4e6dd8></span></button></div> <div id="navMenu" class="navbar-menu false" data-v-ec4e6dd8><a href="/" class="router-link-active navbar-item is-tab" data-v-ec4e6dd8>หน้าหลัก</a> <!----> <!----><!----> <a href="https://www.youtube.com/user/tutor4dev/videos" target="_blank" class="navbar-item is-tab" data-v-ec4e6dd8>YouTube</a> <!----><a href="/articles.html" class="navbar-item is-tab is-active" data-v-ec4e6dd8>บทความ</a> <!----> <!----><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">คอร์สอบรม</a> <div class="navbar-dropdown"><a href="/courses/laravel.html" class="navbar-item is-tab">Laravel Framework 5 Fundamental</a><a href="/courses/node.html" class="navbar-item is-tab">Node.js และ Express.js Fundamental</a><a href="/courses/react.html" class="navbar-item is-tab">React.js และ Redux Fundamental</a><a href="/courses/vue.html" class="navbar-item is-tab">Vue.js VueRx และ Vuex Fundamental</a></div></div><!----> <div class="navbar-item has-dropdown is-hoverable" data-v-ec4e6dd8><a class="navbar-link">หมวดหมู่</a> <div class="navbar-dropdown"><a href="/articles?category=configuration" class="navbar-item is-tab">Configuration</a><a href="/articles?category=firebase" class="navbar-item is-tab">Firebase</a><a href="/articles?category=javascript" class="navbar-item is-tab">JavaScript</a><a href="/articles?category=laravel" class="navbar-item is-tab">Laravel</a><a href="/articles?category=line" class="navbar-item is-tab">LINE</a><a href="/articles?category=nodejs" class="navbar-item is-tab">Node.js</a><a href="/articles?category=php" class="navbar-item is-tab">PHP</a><a href="/articles?category=python" class="navbar-item is-tab">Python</a><a href="/articles?category=reactjs" class="navbar-item is-tab">React.js</a><a href="/articles?category=vscode" class="navbar-item is-tab">Visual Studio Code</a><a href="/articles?category=vuejs" class="navbar-item is-tab">Vue.js</a><a href="/articles?category=youtube" class="navbar-item is-tab">YouTube</a></div></div><a href="/about.html" class="navbar-item is-tab" data-v-ec4e6dd8>เกี่ยวกับเรา</a> <!----> <!----></div></nav> <section class="section" style="padding-top:0.5em;"><div class="container"><div class="columns"><div class="column is-three-quarters"><div class="is-article"><p style="margin-bottom:2em;"></p> <div class="content custom"><h1>เขียนโปรแกรมส่งอีเมลด้วยภาษา Python ตอนที่ 1</h1> <p>โปรแกรมส่งอีเมลเป็นโปรแกรมที่เขียนง่าย และสามารถนำไปประยุกต์ใช้งานได้หลากหลาย เช่นการแจ้งโปรโมชั่นกับลูกค้า การส่งจดหมายเวียน และการใช้ยืนยันการสมัครสมาชิกของเว็บไซต์ เป็นต้น โดยบทความนี้จะเลือกใช้ภาษา Python ซึ่งกำลังฮอตฮิตเป็นอย่างมากในปัจจุบัน เนื่องจากเป็นภาษาที่เรียนรู้ง่ายแม้จะไม่เคยเขียนโปรแกรมมาก่อน และยังสามารถนำไปต่อยอดใช้กับการเขียนโปรแกรมด้าน Data Science และ Machine Learning ได้อีกด้วย</p> <h3 id="ผู้ให้บริการ-smtp">ผู้ให้บริการ SMTP</h3> <p>การที่เราสามารถ<strong>ส่ง</strong>อีเมลถึงกันได้นั้นเป็นเพราะมีการใช้งานโปรโตคอล <em>SMTP</em> และ <em>IMAP</em> (บทความนี้จะกล่าวถึงโปรโตคอล <em>SMTP</em> เท่านั้น) โดยโปรแกรมส่งอีเมลที่เราใช้จะส่งอีเมลไปยังเครื่อง <em>SMTP</em> เซิร์ฟเวอร์ต้นทาง แล้วเจ้าเซิร์ฟเวอร์ดังกล่าวก็จะพยายามติดต่อกับเครื่อง <em>SMTP</em> เซิร์ฟเวอร์ปลายทางเพื่อทำการส่งอีเมลกันต่อไป</p> <p>บทความนี้จะสาธิตการเขียนโปรแกรมเพื่อ<strong>ส่ง</strong>อีเมล ดังนั้นเราจึงสนใจแค่การส่งอีเมลไปยัง <em>SMTP</em> เซิร์ฟเวอร์ต้นทางเพียงเท่านั้น เพราะงานส่วนที่เหลือเป็นภาระหน้าที่ของ <em>SMTP</em> เซิร์ฟเวอร์ที่จะต้องดำเนินการในขั้นตอนต่อไป</p> <h3 id="mailtrap-io">Mailtrap.io</h3> <p>โดยทั่วไปเราจะใช้ <em>SMTP</em> เซิร์ฟเวอร์ของผู้ให้บริการอินเตอร์เน็ต เช่น เครื่องเซิร์ฟเวอร์ <code>smtp.3bbmail.com</code> ของค่าย 3BB เป็นต้น โดยเราจะต้องมีบัญชีผู้ใช้ และรหัสผ่านจึงจะสามารถส่งอีเมลไปยังเครื่อง <em>SMTP</em> เซิร์ฟเวอร์นั้นๆ ได้</p> <p>แต่บทความนี้จะใช้บริการ <a href="https://mailtrap.io/" target="_blank" rel="noopener noreferrer">https://mailtrap.io/<svg xmlns="http://www.w3.org/2000/svg" aria-hidden="true" x="0px" y="0px" viewBox="0 0 100 100" width="15" height="15" class="icon outbound"><path fill="currentColor" d="M18.8,85.1h56l0,0c2.2,0,4-1.8,4-4v-32h-8v28h-48v-48h28v-8h-32l0,0c-2.2,0-4,1.8-4,4v56C14.8,83.3,16.6,85.1,18.8,85.1z"></path> <polygon fill="currentColor" points="45.7,48.7 51.3,54.3 77.2,28.5 77.2,37.2 85.2,37.2 85.2,14.9 62.8,14.9 62.8,22.9 71.5,22.9"></polygon></svg></a> ซึ่งเป็นบริการเซิร์ฟเวอร์ <em>SMTP</em> ปลอมเพื่อใช้สำหรับการทดสอบเขียนโปรแกรมส่งอีเมลเท่านั้น (อีเมลจะไม่ถูกส่งจริงไปยังผู้รับ)</p> <p><img src="https://i.imgur.com/ruxwKmK.png" alt></p> <p><img src="https://i.imgur.com/0mvwhfs.png" alt></p> <blockquote><p>หลังจากสมัครใช้งาน Mailtrap.io แล้วเราสามารถดูค่าต่างๆ สำหรับใช้ในการเขียนโค้ด ตามรูปภาพข้างบนครับ โดยค่าที่เราต้องนำไปใช้ คือ Host, Port, Username และ Password</p></blockquote> <h3 id="เตรียมไฟล์สำหรับเขียนโปรแกรม">เตรียมไฟล์สำหรับเขียนโปรแกรม</h3> <p>โปรแกรมนี้จะเขียนโค้ดทั้งหมดในไฟล์เพียงไฟล์เดียว โดยการสั่งให้โปรแกรมทำงานจะใช้วิธีการพิมพ์คำสั่งในโปรแกรม <em>Terminal</em> หรือ <em>cmd.exe</em> ครับ</p> <p><em>Path</em></p> <div class="language- extra-class"><pre class="hljs"><code>
+|-main.py
+</code></pre></div><p>พิมพ์คำสั่งที่ <em>Terminal</em></p> <div class="language-bash extra-class"><pre class="hljs"><code>
+<span class="hljs-comment"># สั่งให้โปรแกรมทำงาน</span>
+python main.py
+</code></pre></div><h3 id="ใช้งานโมดูล-smtplib">ใช้งานโมดูล <code>smtplib</code></h3> <p>ไฟล์ <em>main.py</em></p> <div class="language-py extra-class"><pre class="hljs"><code>
+<span class="hljs-comment"># ใช้งานโมดูล</span>
+<span class="hljs-keyword">import</span> smtplib
+
+<span class="hljs-comment"># กำหนดตัวแปรชื่อผู้ใช้ และ รหัสผ่าน</span>
+username = <span class="hljs-string">'f45df0b274f757'</span>
+password = <span class="hljs-string">'dc071f44e10bc9'</span>
+<span class="hljs-comment"># กำหนดตัวแปรอีเมลผู้ส่ง และ ผู้รับ</span>
+sender = <span class="hljs-string">'foo@gmail.com'</span>
+recipient = <span class="hljs-string">'bar@gmail.com'</span>
+
+<span class="hljs-comment"># เนื้อหาของอีเมล</span>
+body = <span class="hljs-string">&quot;&quot;&quot;
+Hello
+World
+&quot;&quot;&quot;</span>
+
+mail = body
+
+<span class="hljs-comment"># ตั้งค่าเซิร์ฟเวอร์ด้วยชื่อโฮส และ พอร์ท</span>
+server = smtplib.SMTP(<span class="hljs-string">'smtp.mailtrap.io'</span>, <span class="hljs-number">25</span>)
+server.login(username, password)
+server.sendmail(sender, recipient, mail)
+server.quit()
+</code></pre></div><p><img src="https://i.imgur.com/Q1fTGPX.png" alt></p> <p><img src="https://i.imgur.com/rQ3zS0M.png" alt></p> <p><img src="https://i.imgur.com/EeECOPh.png" alt></p> <blockquote><p>หลังจากโปรแกรมทำงานเสร็จแล้ว (โดยไม่มี Error) จะเห็นว่าอีเมลถูกส่งไปยัง Mailtrap.io ซึ่งทำหน้าที่เป็นเครื่อง <em>SMTP</em> เซิร์ฟเวอร์ให้กับเรา</p></blockquote> <p>มาถึงขั้นตอนนี้จะสังเกตุเห็นว่าแม้เราจะระบุ<strong>ผู้รับ</strong>ด้วยโค้ด <code>server.sendmail(sender, recipient, mail)</code> แต่ผลลัพธ์ที่เห็นเหมือนกับ<strong>ไม่มีผู้รับ</strong>ถูกระบุอยู่ในอีเมลอยู่ดี</p> <p>ปัญหาที่เจอในขั้นตอนนี้คือโดย Default เจ้าโมดูล <code>smtplib</code> จะไม่สร้าง <em>SMTP Header</em> โดยอัตโนมัติให้กับเรา เราจึงต้องทำการแก้ไขโค้ดเพื่อให้ <em>SMTP Header</em> มีหน้าตาเหมือนกับรูปด้านล่างครับ</p> <p><img src="https://i.imgur.com/TDzvERs.png" alt></p> <h3 id="smtp-header"><em>SMTP</em> Header</h3> <p>ไฟล์ <em>main.py</em></p> <div class="language-py extra-class"><pre class="hljs"><code>
+<span class="hljs-comment"># ใช้งาน f-string</span>
+header = <span class="hljs-string">f'To: <span class="hljs-subst">{ recipient }</span>'</span>
+
+<span class="hljs-comment"># mail = body</span>
+<span class="hljs-comment"># ระหว่าง header และ body จะต้องมีบรรทัดว่าง 1 บรรทัด</span>
+mail = header + <span class="hljs-string">'\n'</span> + body
+</code></pre></div><p><img src="https://i.imgur.com/zi8i2Ou.png" alt></p> <p><img src="https://i.imgur.com/8dR2T7Z.png" alt></p> <p><img src="https://i.imgur.com/TDzvERs.png" alt></p> <blockquote><p>ในครั้งนี้ จะเห็นว่ามีทั้งชื่อผู้ส่ง และผู้รับถูกต้องครบถ้วนครับ</p></blockquote> <h3 id="โค้ดทั้งหมด">โค้ดทั้งหมด</h3> <div class="language-py extra-class"><pre class="hljs"><code>
+<span class="hljs-keyword">import</span> smtplib
+
+username = <span class="hljs-string">'f45df0b274f757'</span>
+password = <span class="hljs-string">'dc071f44e10bc9'</span>
+
+sender = <span class="hljs-string">'foo@gmail.com'</span>
+recipient = <span class="hljs-string">'bar@gmail.com'</span>
+
+body = <span class="hljs-string">&quot;&quot;&quot;
+Hello
+World
+&quot;&quot;&quot;</span>
+
+header = <span class="hljs-string">f'To: <span class="hljs-subst">{ recipient }</span>\n'</span>
+
+mail = header + body
+
+server = smtplib.SMTP(<span class="hljs-string">'smtp.mailtrap.io'</span>, <span class="hljs-number">25</span>)
+server.login(username, password)
+server.sendmail(sender, recipient, mail)
+server.quit()
+</code></pre></div><p>บทความตอนนี้จะเพียงแค่สาธิตการเขียนโปรแกรมด้วย Python เพื่อส่งอีเมลไปยัง <em>SMTP</em> เซิร์ฟเวอร์ครับ ซึ่งผู้อ่านน่าจะพอสังเกตุเห็นแล้วว่าโปรแกรมของเรายังขาดความสมบูรณ์อีกหลายส่วน เช่น Subject ของอีเมล การส่งอีเมลหาผู้รับครั้งละหลายๆ คนเป็นต้น โดยเราจะยกยอดไปต่อกันในตอนหน้าครับ</p> <h3 id="つづく">つづく</h3></div></div></div> <div class="column is-hidden-mobile"><p style="margin-bottom:2em"></p> <!----></div></div></div></section> <!----></div></div>
+    <script src="/assets/js/app.ca8b9976.js" defer></script><script src="/assets/js/30.0627d354.js" defer></script>
+  </body>
+</html>
